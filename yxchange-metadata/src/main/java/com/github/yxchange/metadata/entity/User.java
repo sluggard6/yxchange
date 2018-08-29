@@ -1,12 +1,17 @@
 package com.github.yxchange.metadata.entity;
 
 import java.util.Date;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Table(name = "user")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "JDBC", strategy = GenerationType.IDENTITY)
     private Integer id;
 
     /**
@@ -22,11 +27,13 @@ public class User {
     /**
      * 创建时间
      */
+    @Column(insertable=false, updatable=false)
     private Date createtime;
 
     /**
      * 最后更改时间
      */
+    @Column(insertable=false, updatable=false)
     private Date modifytime;
 
     public User(Integer id, String username, String password, Date createtime, Date modifytime) {
