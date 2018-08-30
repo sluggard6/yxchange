@@ -83,79 +83,79 @@
     -->
     id, username, password, createtime, modifytime
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.github.yxchange.metadata.entity.UserExample" >
-    <!--
-      WARNING - @mbggenerated
-    -->
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from user
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
-  <delete id="deleteByExample" parameterType="com.github.yxchange.metadata.entity.UserExample" >
-    <!--
-      WARNING - @mbggenerated
-    -->
-    delete from user
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <select id="countByExample" parameterType="com.github.yxchange.metadata.entity.UserExample" resultType="java.lang.Integer" >
-    <!--
-      WARNING - @mbggenerated
-    -->
-    select count(*) from user
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    <!--
-      WARNING - @mbggenerated
-    -->
-    update user
-    <set >
-      <if test="record.id != null" >
-        id = #{record.id,jdbcType=INTEGER},
-      </if>
-      <if test="record.username != null" >
-        username = #{record.username,jdbcType=VARCHAR},
-      </if>
-      <if test="record.password != null" >
-        password = #{record.password,jdbcType=VARCHAR},
-      </if>
-      <if test="record.createtime != null" >
-        createtime = #{record.createtime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.modifytime != null" >
-        modifytime = #{record.modifytime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    <!--
-      WARNING - @mbggenerated
-    -->
-    update user
-    set id = #{record.id,jdbcType=INTEGER},
-      username = #{record.username,jdbcType=VARCHAR},
-      password = #{record.password,jdbcType=VARCHAR},
-      createtime = #{record.createtime,jdbcType=TIMESTAMP},
-      modifytime = #{record.modifytime,jdbcType=TIMESTAMP}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
+  <!--<select id="selectByExample" resultMap="BaseResultMap" parameterType="com.github.yxchange.metadata.entity.UserExample" >-->
+    <!--&lt;!&ndash;-->
+      <!--WARNING - @mbggenerated-->
+    <!--&ndash;&gt;-->
+    <!--select-->
+    <!--<if test="distinct" >-->
+      <!--distinct-->
+    <!--</if>-->
+    <!--<include refid="Base_Column_List" />-->
+    <!--from user-->
+    <!--<if test="_parameter != null" >-->
+      <!--<include refid="Example_Where_Clause" />-->
+    <!--</if>-->
+    <!--<if test="orderByClause != null" >-->
+      <!--order by ${orderByClause}-->
+    <!--</if>-->
+  <!--</select>-->
+  <!--<delete id="deleteByExample" parameterType="com.github.yxchange.metadata.entity.UserExample" >-->
+    <!--&lt;!&ndash;-->
+      <!--WARNING - @mbggenerated-->
+    <!--&ndash;&gt;-->
+    <!--delete from user-->
+    <!--<if test="_parameter != null" >-->
+      <!--<include refid="Example_Where_Clause" />-->
+    <!--</if>-->
+  <!--</delete>-->
+  <!--<select id="countByExample" parameterType="com.github.yxchange.metadata.entity.UserExample" resultType="java.lang.Integer" >-->
+    <!--&lt;!&ndash;-->
+      <!--WARNING - @mbggenerated-->
+    <!--&ndash;&gt;-->
+    <!--select count(*) from user-->
+    <!--<if test="_parameter != null" >-->
+      <!--<include refid="Example_Where_Clause" />-->
+    <!--</if>-->
+  <!--</select>-->
+  <!--<update id="updateByExampleSelective" parameterType="map" >-->
+    <!--&lt;!&ndash;-->
+      <!--WARNING - @mbggenerated-->
+    <!--&ndash;&gt;-->
+    <!--update user-->
+    <!--<set >-->
+      <!--<if test="record.id != null" >-->
+        <!--id = #{record.id,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="record.username != null" >-->
+        <!--username = #{record.username,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="record.password != null" >-->
+        <!--password = #{record.password,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="record.createtime != null" >-->
+        <!--createtime = #{record.createtime,jdbcType=TIMESTAMP},-->
+      <!--</if>-->
+      <!--<if test="record.modifytime != null" >-->
+        <!--modifytime = #{record.modifytime,jdbcType=TIMESTAMP},-->
+      <!--</if>-->
+    <!--</set>-->
+    <!--<if test="_parameter != null" >-->
+      <!--<include refid="Update_By_Example_Where_Clause" />-->
+    <!--</if>-->
+  <!--</update>-->
+  <!--<update id="updateByExample" parameterType="map" >-->
+    <!--&lt;!&ndash;-->
+      <!--WARNING - @mbggenerated-->
+    <!--&ndash;&gt;-->
+    <!--update user-->
+    <!--set id = #{record.id,jdbcType=INTEGER},-->
+      <!--username = #{record.username,jdbcType=VARCHAR},-->
+      <!--password = #{record.password,jdbcType=VARCHAR},-->
+      <!--createtime = #{record.createtime,jdbcType=TIMESTAMP},-->
+      <!--modifytime = #{record.modifytime,jdbcType=TIMESTAMP}-->
+    <!--<if test="_parameter != null" >-->
+      <!--<include refid="Update_By_Example_Where_Clause" />-->
+    <!--</if>-->
+  <!--</update>-->
 </mapper>
