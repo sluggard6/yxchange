@@ -29,5 +29,9 @@ public class UserController {
 			return null;
 		}
 	}
+	@RequestMapping(value="search", method=RequestMethod.GET)
+	public User search(String userName) {
+		return userService.search(userName);
+	}
 
 }

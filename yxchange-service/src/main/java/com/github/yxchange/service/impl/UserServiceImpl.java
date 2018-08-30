@@ -1,11 +1,11 @@
 package com.github.yxchange.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import com.github.yxchange.metadata.entity.User;
+import com.github.yxchange.metadata.entity.UserExample;
 import com.github.yxchange.metadata.mapper.UserMapper;
 import com.github.yxchange.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 @Component
 public class UserServiceImpl implements UserService {
@@ -21,6 +21,15 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean register(User user) {
 		return userMapper.insertSelective(user) > 0;
+	}
+
+	@Override
+	public User search(String userName) {
+		UserExample userExample = new UserExample();
+		UserExample.Criteria criteria = userExample.createCriteria();
+		criteria.andUsernameEqualTo(userName);
+		return userMapper.selectOneByExample(userExample);
+
 	}
 
 }

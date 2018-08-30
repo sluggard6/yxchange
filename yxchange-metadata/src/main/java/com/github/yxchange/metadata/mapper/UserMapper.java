@@ -1,12 +1,6 @@
 package com.github.yxchange.metadata.mapper;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
-
 import com.github.yxchange.metadata.entity.User;
-import com.github.yxchange.metadata.entity.UserExample;
-
 import tk.mybatis.mapper.common.Mapper;
 
 public interface UserMapper extends Mapper<User> {

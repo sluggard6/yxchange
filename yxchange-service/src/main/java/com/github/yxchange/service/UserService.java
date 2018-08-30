@@ -8,4 +8,5 @@ public interface UserService {
 	
 	boolean register(User user);
 
+	User search(String userName);
 }
