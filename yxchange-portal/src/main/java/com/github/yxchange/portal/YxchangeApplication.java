@@ -1,6 +1,7 @@
 package com.github.yxchange.portal;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -11,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import tk.mybatis.spring.annotation.MapperScan;
 
 @SpringBootApplication
+@EnableAutoConfiguration
 @Slf4j
 @ComponentScan("com.github.yxchange")
 @MapperScan("com.github.yxchange.metadata.mapper")

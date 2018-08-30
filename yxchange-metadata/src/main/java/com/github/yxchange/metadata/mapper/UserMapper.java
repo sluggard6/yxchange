@@ -6,16 +6,17 @@ import org.apache.ibatis.annotations.Param;
 
 import com.github.yxchange.metadata.entity.User;
 import com.github.yxchange.metadata.entity.UserExample;
-import com.github.yxchange.metadata.provider.BaseMapper;
 
-public interface UserMapper extends BaseMapper<User> {
-    int countByExample(UserExample example);
+import tk.mybatis.mapper.common.Mapper;
 
-    int deleteByExample(UserExample example);
-
-    List<User> selectByExample(UserExample example);
-
-    int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
-
-    int updateByExample(@Param("record") User record, @Param("example") UserExample example);
+public interface UserMapper extends Mapper<User> {
+//    int countByExample(UserExample example);
+//
+//    int deleteByExample(UserExample example);
+//
+//    List<User> selectByExample(UserExample example);
+//
+//    int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
+//
+//    int updateByExample(@Param("record") User record, @Param("example") UserExample example);
 }

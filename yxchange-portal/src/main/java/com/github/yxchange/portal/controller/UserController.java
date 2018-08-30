@@ -22,6 +22,7 @@ public class UserController {
 	
 	@RequestMapping(value="register", method=RequestMethod.POST)
 	public User register(User user) {
+		user.setId(null);
 		if(userService.register(user)) {
 			return user;
 		} else {

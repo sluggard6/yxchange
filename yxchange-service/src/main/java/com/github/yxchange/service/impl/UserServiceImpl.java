@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean register(User user) {
-		return userMapper.insertUseGeneratedKeys(user) == 1;
+		return userMapper.insertSelective(user) > 0;
 	}
 
 }
