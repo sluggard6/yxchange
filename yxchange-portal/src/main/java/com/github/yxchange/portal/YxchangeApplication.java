@@ -7,12 +7,14 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.event.ContextClosedEvent;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import lombok.extern.slf4j.Slf4j;
 import tk.mybatis.spring.annotation.MapperScan;
 
 @SpringBootApplication
 @EnableAutoConfiguration
+@EnableTransactionManagement
 @Slf4j
 @ComponentScan("com.github.yxchange")
 @MapperScan("com.github.yxchange.metadata.mapper")

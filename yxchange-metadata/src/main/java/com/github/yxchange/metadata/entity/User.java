@@ -3,11 +3,10 @@ package com.github.yxchange.metadata.entity;
 import java.util.Date;
 import javax.persistence.*;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 @Table(name = "user")
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY,generator = "JDBC")
-    private Integer id;
+public class User extends Base{
 
     /**
      * 用户名
@@ -22,46 +21,20 @@ public class User {
     /**
      * 掩码
      */
+    @JSONField(serialize=false, deserialize=false)
     private String salt;
 
-    /**
-     * 创建时间
-     */
-    @Column(insertable=false, updatable=false)
-    private Date createtime;
-
-    /**
-     * 最后更改时间
-     */
-    @Column(insertable=false, updatable=false)
-    private Date modifytime;
-
     public User(Integer id, String username, String password, String salt, Date createtime, Date modifytime) {
-        this.id = id;
+        super(id, createtime, modifytime);
         this.username = username;
         this.password = password;
         this.salt = salt;
-        this.createtime = createtime;
-        this.modifytime = modifytime;
     }
 
     public User() {
         super();
     }
 
-    /**
-     * @return id
-     */
-    public Integer getId() {
-        return id;
-    }
-
-    /**
-     * @param id
-     */
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     /**
      * 获取用户名
@@ -117,39 +90,4 @@ public class User {
         this.salt = salt == null ? null : salt.trim();
     }
 
-    /**
-     * 获取创建时间
-     *
-     * @return createtime - 创建时间
-     */
-    public Date getCreatetime() {
-        return createtime;
-    }
-
-    /**
-     * 设置创建时间
-     *
-     * @param createtime 创建时间
-     */
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
-    }
-
-    /**
-     * 获取最后更改时间
-     *
-     * @return modifytime - 最后更改时间
-     */
-    public Date getModifytime() {
-        return modifytime;
-    }
-
-    /**
-     * 设置最后更改时间
-     *
-     * @param modifytime 最后更改时间
-     */
-    public void setModifytime(Date modifytime) {
-        this.modifytime = modifytime;
-    }
 }
