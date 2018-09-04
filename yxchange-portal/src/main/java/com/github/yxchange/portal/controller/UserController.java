@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alibaba.fastjson.JSON;
 import com.github.yxchange.common.HttpResult;
 import com.github.yxchange.metadata.entity.User;
 import com.github.yxchange.service.UserService;

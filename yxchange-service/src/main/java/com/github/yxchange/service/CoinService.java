@@ -9,5 +9,9 @@ public interface CoinService {
 	List<Coin> getAllCoin();
 	
 	int addCoin(Coin coin);
+	
+	boolean contains(String coinName);
+	
+	Coin getCoinByName(String coinName);
 
 }

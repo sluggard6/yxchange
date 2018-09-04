@@ -71,7 +71,8 @@ project(':yxchange-wallet'){
 }
 
 project(':yxchange-service'){
-	dependencies {
+    dependencies {
+        compile 'org.springframework.boot:spring-boot-starter-redis:1.4.7.RELEASE'
 		compile project(':yxchange-metadata')
 	}
 }

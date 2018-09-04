@@ -1,14 +1,21 @@
 package com.github.yxchange.metadata.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 import lombok.Getter;
 
 @Table(name = "coin")
 @Getter
-public class Coin{
+public class Coin implements Serializable{
 	
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2041049608822481755L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY,generator = "JDBC")
     protected Integer id;
 
