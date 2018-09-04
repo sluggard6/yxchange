@@ -10,3 +10,7 @@ mybatis:
 mapper:
   IDENTITY: MYSQL
   order: after
+logging:
+  level:
+    root: INFO
+    org.mybatis: DEBUG

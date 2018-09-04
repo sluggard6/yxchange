@@ -7,8 +7,10 @@ DROP TABLE IF EXISTS `yxchange`.`user`;
 CREATE TABLE `yxchange`.`user` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `username` varchar(50) not null COMMENT '用户名',
-  `password` varchar(50) not null COMMENT '密码',
+  `password` varchar(200) not null COMMENT '密码',
+  `salt` varchar(100) not null comment '掩码',
   `createtime` datetime not null default CURRENT_TIMESTAMP comment '创建时间',
   `modifytime` datetime not null default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP comment '最后更改时间',
+  UNIQUE INDEX `username_UNIQUE` (`username` ASC),
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 comment '用户角色表';

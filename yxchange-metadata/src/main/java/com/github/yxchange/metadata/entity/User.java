@@ -1,17 +1,12 @@
 package com.github.yxchange.metadata.entity;
 
 import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Table(name = "user")
 public class User {
     @Id
-    @GeneratedValue(generator = "JDBC", strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY,generator = "JDBC")
     private Integer id;
 
     /**
@@ -25,6 +20,11 @@ public class User {
     private String password;
 
     /**
+     * 掩码
+     */
+    private String salt;
+
+    /**
      * 创建时间
      */
     @Column(insertable=false, updatable=false)
@@ -36,10 +36,11 @@ public class User {
     @Column(insertable=false, updatable=false)
     private Date modifytime;
 
-    public User(Integer id, String username, String password, Date createtime, Date modifytime) {
+    public User(Integer id, String username, String password, String salt, Date createtime, Date modifytime) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.salt = salt;
         this.createtime = createtime;
         this.modifytime = modifytime;
     }
@@ -96,6 +97,24 @@ public class User {
      */
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
+    }
+
+    /**
+     * 获取掩码
+     *
+     * @return salt - 掩码
+     */
+    public String getSalt() {
+        return salt;
+    }
+
+    /**
+     * 设置掩码
+     *
+     * @param salt 掩码
+     */
+    public void setSalt(String salt) {
+        this.salt = salt == null ? null : salt.trim();
     }
 
     /**

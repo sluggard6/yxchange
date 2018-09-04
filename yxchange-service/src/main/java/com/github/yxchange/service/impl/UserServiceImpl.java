@@ -20,6 +20,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean register(User user) {
+		user.setSalt(newSalt());
+		user.setPassword(getMaskPassword(user.getPassword(), user.getSalt()));
 		return userMapper.insertSelective(user) > 0;
 	}
 
