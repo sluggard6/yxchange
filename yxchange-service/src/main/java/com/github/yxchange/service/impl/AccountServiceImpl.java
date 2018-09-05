@@ -6,14 +6,15 @@ import java.util.function.Consumer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
-import com.alibaba.fastjson.JSON;
 import com.github.yxchange.metadata.entity.Account;
 import com.github.yxchange.metadata.entity.AccountExample;
 import com.github.yxchange.metadata.entity.Coin;
 import com.github.yxchange.metadata.mapper.AccountMapper;
 import com.github.yxchange.service.AccountService;
 import com.github.yxchange.service.CoinService;
+import com.github.yxchange.service.WalletService;
 
 @Component
 public class AccountServiceImpl implements AccountService {
@@ -23,6 +24,9 @@ public class AccountServiceImpl implements AccountService {
 	
 	@Autowired
 	private CoinService coinService;
+	
+	@Autowired
+	private WalletService walletService;
 	
 
 	@Override
@@ -59,8 +63,25 @@ public class AccountServiceImpl implements AccountService {
 			account.setFreezed(BigDecimal.ZERO);
 			accountMapper.insertSelective(account);
 		}
-		System.out.println(JSON.toJSONString(account));
 		return account;
 	}
+
+
+	@Override
+	public int updateAccount(Account account) {
+		return accountMapper.updateByPrimaryKey(account);
+	}
+
+
+	@Override
+	public String getAddress(Account account) {
+		if(StringUtils.isEmpty(account.getAddress())) {
+			String address = walletService.getAddress(account.getCoinName());
+			account.setAddress(address);
+			updateAccount(account);
+		}
+		return account.getAddress();
+	}
+	
 
 }

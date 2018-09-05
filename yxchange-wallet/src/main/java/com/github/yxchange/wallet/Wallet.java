@@ -11,10 +11,13 @@ public interface Wallet {
 	
 	Properties getConfig();
 	
-	String getAccount(String address) throws WalletException;
+	String getAccount() throws WalletException;
 
 	String getAccountAddress(String account) throws WalletException;
 	
 	String getBestBlockHash() throws WalletException;
+
+	String newAddress();
+
 
 }

@@ -70,9 +70,17 @@ project(':yxchange-wallet'){
 	}
 }
 
+project(':yxchange-wallet-btc'){
+	dependencies {
+        compile project(':yxchange-wallet')
+		compile 'com.neemre.btcd-cli4j:btcd-cli4j-core:0.5.8'
+	}
+}
+
 project(':yxchange-service'){
     dependencies {
         compile 'org.springframework.boot:spring-boot-starter-redis:1.4.7.RELEASE'
+        compile project(':yxchange-wallet')
 		compile project(':yxchange-metadata')
 	}
 }

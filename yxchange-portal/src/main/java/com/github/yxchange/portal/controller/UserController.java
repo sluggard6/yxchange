@@ -32,7 +32,7 @@ public class UserController {
 	}
 	@RequestMapping(value="search", method=RequestMethod.GET)
 	public HttpResult<User> search(String userName) {
-		User user = userService.search(userName);
+		User user = userService.getUserByName(userName);
 		return HttpResult.SUCCESS(user);
 	}
 

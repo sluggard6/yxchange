@@ -1,10 +1,15 @@
 package com.github.yxchange.metadata.entity;
 
 import java.util.Date;
-import javax.persistence.*;
+
+import javax.persistence.Table;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.github.yxchange.metadata.serialize.SerializeInfo;
 
+import lombok.ToString;
+
+@ToString
 @Table(name = "user")
 public class User extends Base{
 
@@ -21,7 +26,7 @@ public class User extends Base{
     /**
      * 掩码
      */
-    @JSONField(serialize=false, deserialize=false)
+    @JSONField(label=SerializeInfo.LableView)
     private String salt;
 
     public User(Integer id, String username, String password, String salt, Date createtime, Date modifytime) {

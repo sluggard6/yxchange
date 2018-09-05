@@ -2,12 +2,13 @@ package com.github.yxchange.metadata.entity;
 
 import java.io.Serializable;
 
-import javax.persistence.*;
-
-import lombok.Getter;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Table(name = "coin")
-@Getter
 public class Coin implements Serializable{
 	
     /**
@@ -17,6 +18,7 @@ public class Coin implements Serializable{
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY,generator = "JDBC")
+	@Column(insertable=false, updatable=false)
     protected Integer id;
 
     /**
@@ -40,6 +42,10 @@ public class Coin implements Serializable{
      */
     public String getName() {
         return name;
+    }
+    
+    public Integer getId() {
+    	return id;
     }
 
 }

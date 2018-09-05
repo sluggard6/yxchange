@@ -11,7 +11,11 @@ public interface UserService {
 	
 	boolean register(User user);
 
-	User search(String userName);
+	User getUserByName(String userName);
+	
+	User getUserById(Integer userId);
+	
+	int updateUser(User user);
 	
 	default String newSalt() {
 		return UUID.randomUUID().toString().replaceAll("-", "");

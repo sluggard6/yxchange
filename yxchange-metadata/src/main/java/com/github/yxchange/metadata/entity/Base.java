@@ -25,12 +25,14 @@ public class Base {
     /**
      * 创建时间
      */
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     @Column(insertable=false, updatable=false)
     protected Date createtime;
 
     /**
      * 最后更改时间
      */
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     @Column(insertable=false, updatable=false)
     protected Date modifytime;
     
