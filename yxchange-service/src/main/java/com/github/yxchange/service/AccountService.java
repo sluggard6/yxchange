@@ -8,10 +8,14 @@ public interface AccountService {
 
 	List<Account> getAllAccount(Integer userId);
 
-	Account getAccount(Integer userId, String coinName);
+	Account getAccountByUserCoin(Integer userId, String coinName);
 	
 	int updateAccount(Account account);
 	
 	String getAddress(Account account);
+
+	String getAddress(Integer accountId);
+
+	Account getAccountById(Integer accountId);
 	
 }

@@ -52,7 +52,7 @@ public class AccountServiceImpl implements AccountService {
 
 
 	@Override
-	public Account getAccount(Integer userId, String coinName) {
+	public Account getAccountByUserCoin(Integer userId, String coinName) {
 		Account account = accountMapper.getAccount(userId, coinName);
 		if(account == null || account.isEmpty()) {
 			account = new Account();
@@ -76,11 +76,21 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public String getAddress(Account account) {
 		if(StringUtils.isEmpty(account.getAddress())) {
-			String address = walletService.getAddress(account.getCoinName());
+			String address = walletService.getDepositAddress(account.getCoinName());
 			account.setAddress(address);
 			updateAccount(account);
 		}
 		return account.getAddress();
+	}
+	
+	@Override
+	public String getAddress(Integer accountId) {
+		return getAddress(getAccountById(accountId));
+	}
+
+	@Override
+	public Account getAccountById(Integer accountId) {
+		return accountMapper.selectByPrimaryKey(accountId);
 	}
 	
 

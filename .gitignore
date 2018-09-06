@@ -29,5 +29,7 @@ hs_err_pid*
 bin
 .settings
 build
+out
+.idea
 
 .DS_Store

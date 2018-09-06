@@ -3,6 +3,11 @@ package com.github.yxchange.portal.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+/**
+ * restful接口找不到资源时会抛出此异常，并返回HttpStatus：404
+ * @author frank
+ *
+ */
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class ResourceNotFoundException extends RuntimeException {
 

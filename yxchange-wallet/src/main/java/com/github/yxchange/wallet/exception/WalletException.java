@@ -1,6 +1,6 @@
 package com.github.yxchange.wallet.exception;
 
-public class WalletException extends Exception {
+public class WalletException extends RuntimeException {
 
 	/**
 	 * 

@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Getter;
+
 @Table(name = "coin")
 public class Coin implements Serializable{
 	
@@ -25,6 +27,8 @@ public class Coin implements Serializable{
      * 代币名称
      */
     private String name;
+    
+    private String walletClassName;
 
     public Coin(Integer id, String name) {
         this.id = id;
@@ -47,5 +51,9 @@ public class Coin implements Serializable{
     public Integer getId() {
     	return id;
     }
+
+	public String getWalletClassName() {
+		return this.walletClassName;
+	}
 
 }

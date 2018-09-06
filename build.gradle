@@ -54,9 +54,12 @@ project(':yxchange-portal'){
 
 	apply plugin: 'org.springframework.boot'
 
+
 	dependencies {
 		compile project(':yxchange-service')
 		compile('org.springframework.boot:spring-boot-starter-web')
+		compile 'org.apache.shiro:shiro-spring-boot-starter:1.4.0'
+		compile 'com.auth0:java-jwt:3.4.0'
 	    compile 'io.springfox:springfox-swagger-ui:2.8.0'
 	    compile 'io.springfox:springfox-swagger2:2.8.0'
 		runtime('org.springframework.boot:spring-boot-devtools')

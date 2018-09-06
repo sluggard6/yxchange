@@ -9,6 +9,12 @@ public interface WalletService {
 
 	Wallet getWallet(String coinName);
 
-	String getAddress(String coinName);
+	/**
+	 * 根据币种名称生成充币地址
+	 * 预留支持充币地址池
+	 * @param coinName 币种名称
+	 * @return
+	 */
+	String getDepositAddress(String coinName);
 	
 }

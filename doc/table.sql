@@ -88,6 +88,7 @@ create table `deposit` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `account_id` int(10) not null comment '账户id',
   `amount` DECIMAL(10,10) not null comment '充值金额',
+  `address` varchar(50) not null comment '充币地址',
   `trans_hash` varchar(100) comment '交易hash',
   `high` int(10) comment '块高',
   `state` int(2) not null default 0 comment '0-新建,1-交易池,2-有hash,3-完成',
