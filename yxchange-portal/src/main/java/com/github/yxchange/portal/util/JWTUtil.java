@@ -20,12 +20,13 @@ public class JWTUtil {
      * @return 是否正确
      */
     public static boolean verify(String token, String userId, String secret) {
-        Algorithm algorithm = Algorithm.HMAC256(secret);
-        JWTVerifier verifier = JWT.require(algorithm)
-                .withClaim("userId", userId)
-                .build();
-        DecodedJWT jwt = verifier.verify(token);
-        return jwt.getToken().equals(token);
+		Algorithm algorithm = Algorithm.HMAC256(secret);
+		JWTVerifier verifier = JWT.require(algorithm)
+		        .withClaim("userId", userId)
+		        .build();
+		DecodedJWT jwt = verifier.verify(token);
+		return jwt.getToken().equals(token);
+
     }
 
     /**
