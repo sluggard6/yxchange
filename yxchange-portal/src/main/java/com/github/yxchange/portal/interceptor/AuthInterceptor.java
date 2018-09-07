@@ -1,19 +1,16 @@
 package com.github.yxchange.portal.interceptor;
 
-import java.io.PrintWriter;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.lang.Nullable;
-import org.springframework.util.StringUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.alibaba.fastjson.JSONObject;
 import com.auth0.client.auth.AuthAPI;
 import com.github.yxchange.portal.annotation.AuthRequired;
+import com.github.yxchange.portal.util.JWTUtil;
 
 public class AuthInterceptor extends HandlerInterceptorAdapter {
 	
@@ -49,6 +46,8 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		if (handler instanceof HandlerMethod) {
 			AuthRequired authRequired = ((HandlerMethod) handler).getMethodAnnotation(AuthRequired.class);
 			if(authRequired != null) {
+				String jetToken = getAccessToken(request);
+				
 //				if(securityManager.getPrincipal() == null) {
 //					if(!StringUtils.isEmpty(source) && (source.equalsIgnoreCase("IOS") || source.equals("android"))) {
 //						request.getSession().setMaxInactiveInterval(A_WEEK);
