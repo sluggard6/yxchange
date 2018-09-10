@@ -1,14 +1,13 @@
 package com.github.yxchange.metadata.entity;
 
 import java.math.BigDecimal;
-import java.util.Date;
-import javax.persistence.*;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Table;
 
 @Table(name = "account_order")
-public class AccountOrder {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class AccountOrder extends Base{
 
     /**
      * 账户id
@@ -51,18 +50,10 @@ public class AccountOrder {
      */
     @Column(name = "freezed_after")
     private BigDecimal freezedAfter;
+    
+    private List<AccountOperation> operations;
 
-    /**
-     * 创建时间
-     */
-    private Date createtime;
-
-    /**
-     * 最后更改时间
-     */
-    private Date modifytime;
-
-    public AccountOrder(Integer id, Integer accountId, String orderId, Integer channelId, BigDecimal availableBefore, BigDecimal availableAfter, BigDecimal freezedBefore, BigDecimal freezedAfter, Date createtime, Date modifytime) {
+    public AccountOrder(Integer id, Integer accountId, String orderId, Integer channelId, BigDecimal availableBefore, BigDecimal availableAfter, BigDecimal freezedBefore, BigDecimal freezedAfter) {
         this.id = id;
         this.accountId = accountId;
         this.orderId = orderId;
@@ -71,8 +62,6 @@ public class AccountOrder {
         this.availableAfter = availableAfter;
         this.freezedBefore = freezedBefore;
         this.freezedAfter = freezedAfter;
-        this.createtime = createtime;
-        this.modifytime = modifytime;
     }
 
     public AccountOrder() {
@@ -219,39 +208,12 @@ public class AccountOrder {
         this.freezedAfter = freezedAfter;
     }
 
-    /**
-     * 获取创建时间
-     *
-     * @return createtime - 创建时间
-     */
-    public Date getCreatetime() {
-        return createtime;
-    }
+	public List<AccountOperation> getOperations() {
+		return operations;
+	}
 
-    /**
-     * 设置创建时间
-     *
-     * @param createtime 创建时间
-     */
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
-    }
+	public void setOperations(List<AccountOperation> operations) {
+		this.operations = operations;
+	}
 
-    /**
-     * 获取最后更改时间
-     *
-     * @return modifytime - 最后更改时间
-     */
-    public Date getModifytime() {
-        return modifytime;
-    }
-
-    /**
-     * 设置最后更改时间
-     *
-     * @param modifytime 最后更改时间
-     */
-    public void setModifytime(Date modifytime) {
-        this.modifytime = modifytime;
-    }
 }

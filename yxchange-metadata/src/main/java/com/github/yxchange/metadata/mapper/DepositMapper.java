@@ -16,4 +16,14 @@ public interface DepositMapper extends Mapper<Deposit> {
     int updateByExampleSelective(@Param("record") Deposit record, @Param("example") DepositExample example);
 
     int updateByExample(@Param("record") Deposit record, @Param("example") DepositExample example);
+
+	default int countTransHash(Integer accountId, String transHash) {
+
+		DepositExample depositExample = new DepositExample();
+		DepositExample.Criteria criteria = depositExample.createCriteria();
+		criteria.andAccountIdEqualTo(accountId).andTransHashEqualTo(transHash);
+		return countByExample(depositExample);
+	}
+    
+    
 }

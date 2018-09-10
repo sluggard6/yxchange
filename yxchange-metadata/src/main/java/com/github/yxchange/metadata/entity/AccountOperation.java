@@ -301,4 +301,14 @@ public class AccountOperation {
     public void setModifytime(Date modifytime) {
         this.modifytime = modifytime;
     }
+    
+	public void setOperation(Operation operation) {
+		this.operation = operation.ordinal();
+	}
+	
+    public enum Operation {
+    	FUND,
+    	FREEZE;
+    }
+
 }

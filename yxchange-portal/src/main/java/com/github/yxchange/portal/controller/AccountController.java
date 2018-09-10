@@ -35,7 +35,6 @@ public class AccountController {
 		if(!coinService.contains(coinName)) {
 			throw new ResourceNotFoundException("coinNmae not found");
 		}
-//		currentUser
 		return HttpResult.SUCCESS(accountService.getAccountByUserCoin(userId, coinName));
 	}
 	

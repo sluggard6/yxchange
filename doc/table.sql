@@ -93,7 +93,7 @@ create table `deposit` (
   `address` varchar(50) not null comment '充币地址',
   `trans_hash` varchar(100) comment '交易hash',
   `high` int(10) comment '块高',
-  `state` int(2) not null default 0 comment '0-新建,1-交易池,2-有hash,3-完成',
+  `state` int(2) not null default 0 comment '状态，0-新建,1-安全块高确认中,2-待归集,3-完成',
   `createtime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `modifytime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后更改时间',
   PRIMARY KEY (`id`)

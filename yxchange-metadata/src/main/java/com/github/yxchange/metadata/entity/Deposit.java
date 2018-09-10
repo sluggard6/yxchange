@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Table(name = "deposit")
 public class Deposit extends Base{
 
-    /**
+	/**
      * 账户id
      */
     @Column(name = "account_id")
@@ -47,12 +47,11 @@ public class Deposit extends Base{
     private Integer high;
 
     /**
-     * 0-新建,1-交易池,2-有hash,3-完成
+     * 状态0-新建,1-安全块高确认中,2-待归集,3-完成
      */
     private Integer state;
 
-    public Deposit(Integer id, Integer accountId, Integer coinId, String coinName, BigDecimal amount, String address, String transHash, Integer high, Integer state, Date createtime, Date modifytime) {
-        this.id = id;
+    public Deposit(Integer accountId, Integer coinId, String coinName, BigDecimal amount, String address, String transHash, Integer high, Integer state) {
         this.accountId = accountId;
         this.coinId = coinId;
         this.coinName = coinName;
@@ -61,8 +60,6 @@ public class Deposit extends Base{
         this.transHash = transHash;
         this.high = high;
         this.state = state;
-        this.createtime = createtime;
-        this.modifytime = modifytime;
     }
 
     public Deposit() {
@@ -196,7 +193,7 @@ public class Deposit extends Base{
     }
 
     /**
-     * 获取0-新建,1-交易池,2-有hash,3-完成
+     * 获取状态
      *
      * @return state - 0-新建,1-交易池,2-有hash,3-完成
      */
@@ -205,7 +202,7 @@ public class Deposit extends Base{
     }
 
     /**
-     * 设置0-新建,1-交易池,2-有hash,3-完成
+     * 设置状态
      *
      * @param state 0-新建,1-交易池,2-有hash,3-完成
      */
@@ -213,4 +210,16 @@ public class Deposit extends Base{
         this.state = state;
     }
     
+    public void setState(State state) {
+    	this.state = state.ordinal();
+    }
+    
+    public enum State {
+    	NEW,
+    	PADDING,
+    	WAIT_COLLECTION,
+    	DOWN;
+    }
+    
 }
+

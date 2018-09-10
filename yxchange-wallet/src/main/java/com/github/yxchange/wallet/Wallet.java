@@ -19,5 +19,7 @@ public interface Wallet {
 
 	String newAddress();
 
+	int getHeight(String transHash);
+
 
 }
