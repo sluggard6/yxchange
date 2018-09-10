@@ -87,6 +87,8 @@ drop table if exists `deposit`;
 create table `deposit` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `account_id` int(10) not null comment '账户id',
+  `coin_id` int(10) not null comment '币种id',
+  `coin_name` varchar(10) not null comment '币种名称',
   `amount` DECIMAL(10,10) not null comment '充值金额',
   `address` varchar(50) not null comment '充币地址',
   `trans_hash` varchar(100) comment '交易hash',

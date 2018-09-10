@@ -10,7 +10,6 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.auth0.client.auth.AuthAPI;
 import com.github.yxchange.portal.annotation.AuthRequired;
-import com.github.yxchange.portal.util.JWTUtil;
 
 public class AuthInterceptor extends HandlerInterceptorAdapter {
 	

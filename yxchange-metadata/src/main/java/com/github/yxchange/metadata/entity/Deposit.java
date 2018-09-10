@@ -5,10 +5,7 @@ import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "deposit")
-public class Deposit {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Deposit extends Base{
 
     /**
      * 账户id
@@ -17,9 +14,26 @@ public class Deposit {
     private Integer accountId;
 
     /**
+     * 币种id
+     */
+    @Column(name = "coin_id")
+    private Integer coinId;
+
+    /**
+     * 币种名称
+     */
+    @Column(name = "coin_name")
+    private String coinName;
+
+    /**
      * 充值金额
      */
     private BigDecimal amount;
+
+    /**
+     * 充币地址
+     */
+    private String address;
 
     /**
      * 交易hash
@@ -37,20 +51,13 @@ public class Deposit {
      */
     private Integer state;
 
-    /**
-     * 创建时间
-     */
-    private Date createtime;
-
-    /**
-     * 最后更改时间
-     */
-    private Date modifytime;
-
-    public Deposit(Integer id, Integer accountId, BigDecimal amount, String transHash, Integer high, Integer state, Date createtime, Date modifytime) {
+    public Deposit(Integer id, Integer accountId, Integer coinId, String coinName, BigDecimal amount, String address, String transHash, Integer high, Integer state, Date createtime, Date modifytime) {
         this.id = id;
         this.accountId = accountId;
+        this.coinId = coinId;
+        this.coinName = coinName;
         this.amount = amount;
+        this.address = address;
         this.transHash = transHash;
         this.high = high;
         this.state = state;
@@ -60,20 +67,6 @@ public class Deposit {
 
     public Deposit() {
         super();
-    }
-
-    /**
-     * @return id
-     */
-    public Integer getId() {
-        return id;
-    }
-
-    /**
-     * @param id
-     */
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     /**
@@ -95,6 +88,42 @@ public class Deposit {
     }
 
     /**
+     * 获取币种id
+     *
+     * @return coin_id - 币种id
+     */
+    public Integer getCoinId() {
+        return coinId;
+    }
+
+    /**
+     * 设置币种id
+     *
+     * @param coinId 币种id
+     */
+    public void setCoinId(Integer coinId) {
+        this.coinId = coinId;
+    }
+
+    /**
+     * 获取币种名称
+     *
+     * @return coin_name - 币种名称
+     */
+    public String getCoinName() {
+        return coinName;
+    }
+
+    /**
+     * 设置币种名称
+     *
+     * @param coinName 币种名称
+     */
+    public void setCoinName(String coinName) {
+        this.coinName = coinName == null ? null : coinName.trim();
+    }
+
+    /**
      * 获取充值金额
      *
      * @return amount - 充值金额
@@ -110,6 +139,24 @@ public class Deposit {
      */
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+
+    /**
+     * 获取充币地址
+     *
+     * @return address - 充币地址
+     */
+    public String getAddress() {
+        return address;
+    }
+
+    /**
+     * 设置充币地址
+     *
+     * @param address 充币地址
+     */
+    public void setAddress(String address) {
+        this.address = address == null ? null : address.trim();
     }
 
     /**
@@ -165,40 +212,5 @@ public class Deposit {
     public void setState(Integer state) {
         this.state = state;
     }
-
-    /**
-     * 获取创建时间
-     *
-     * @return createtime - 创建时间
-     */
-    public Date getCreatetime() {
-        return createtime;
-    }
-
-    /**
-     * 设置创建时间
-     *
-     * @param createtime 创建时间
-     */
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
-    }
-
-    /**
-     * 获取最后更改时间
-     *
-     * @return modifytime - 最后更改时间
-     */
-    public Date getModifytime() {
-        return modifytime;
-    }
-
-    /**
-     * 设置最后更改时间
-     *
-     * @param modifytime 最后更改时间
-     */
-    public void setModifytime(Date modifytime) {
-        this.modifytime = modifytime;
-    }
+    
 }

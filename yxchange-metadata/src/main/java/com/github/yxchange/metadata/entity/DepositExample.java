@@ -226,6 +226,136 @@ public class DepositExample {
             return (Criteria) this;
         }
 
+        public Criteria andCoinIdIsNull() {
+            addCriterion("coin_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoinIdIsNotNull() {
+            addCriterion("coin_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoinIdEqualTo(Integer value) {
+            addCriterion("coin_id =", value, "coinId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoinIdNotEqualTo(Integer value) {
+            addCriterion("coin_id <>", value, "coinId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoinIdGreaterThan(Integer value) {
+            addCriterion("coin_id >", value, "coinId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoinIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("coin_id >=", value, "coinId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoinIdLessThan(Integer value) {
+            addCriterion("coin_id <", value, "coinId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoinIdLessThanOrEqualTo(Integer value) {
+            addCriterion("coin_id <=", value, "coinId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoinIdIn(List<Integer> values) {
+            addCriterion("coin_id in", values, "coinId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoinIdNotIn(List<Integer> values) {
+            addCriterion("coin_id not in", values, "coinId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoinIdBetween(Integer value1, Integer value2) {
+            addCriterion("coin_id between", value1, value2, "coinId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoinIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("coin_id not between", value1, value2, "coinId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoinNameIsNull() {
+            addCriterion("coin_name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoinNameIsNotNull() {
+            addCriterion("coin_name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoinNameEqualTo(String value) {
+            addCriterion("coin_name =", value, "coinName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoinNameNotEqualTo(String value) {
+            addCriterion("coin_name <>", value, "coinName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoinNameGreaterThan(String value) {
+            addCriterion("coin_name >", value, "coinName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoinNameGreaterThanOrEqualTo(String value) {
+            addCriterion("coin_name >=", value, "coinName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoinNameLessThan(String value) {
+            addCriterion("coin_name <", value, "coinName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoinNameLessThanOrEqualTo(String value) {
+            addCriterion("coin_name <=", value, "coinName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoinNameLike(String value) {
+            addCriterion("coin_name like", value, "coinName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoinNameNotLike(String value) {
+            addCriterion("coin_name not like", value, "coinName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoinNameIn(List<String> values) {
+            addCriterion("coin_name in", values, "coinName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoinNameNotIn(List<String> values) {
+            addCriterion("coin_name not in", values, "coinName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoinNameBetween(String value1, String value2) {
+            addCriterion("coin_name between", value1, value2, "coinName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoinNameNotBetween(String value1, String value2) {
+            addCriterion("coin_name not between", value1, value2, "coinName");
+            return (Criteria) this;
+        }
+
         public Criteria andAmountIsNull() {
             addCriterion("amount is null");
             return (Criteria) this;
@@ -283,6 +413,76 @@ public class DepositExample {
 
         public Criteria andAmountNotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("amount not between", value1, value2, "amount");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressIsNull() {
+            addCriterion("address is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressIsNotNull() {
+            addCriterion("address is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressEqualTo(String value) {
+            addCriterion("address =", value, "address");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressNotEqualTo(String value) {
+            addCriterion("address <>", value, "address");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressGreaterThan(String value) {
+            addCriterion("address >", value, "address");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressGreaterThanOrEqualTo(String value) {
+            addCriterion("address >=", value, "address");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressLessThan(String value) {
+            addCriterion("address <", value, "address");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressLessThanOrEqualTo(String value) {
+            addCriterion("address <=", value, "address");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressLike(String value) {
+            addCriterion("address like", value, "address");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressNotLike(String value) {
+            addCriterion("address not like", value, "address");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressIn(List<String> values) {
+            addCriterion("address in", values, "address");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressNotIn(List<String> values) {
+            addCriterion("address not in", values, "address");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressBetween(String value1, String value2) {
+            addCriterion("address between", value1, value2, "address");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressNotBetween(String value1, String value2) {
+            addCriterion("address not between", value1, value2, "address");
             return (Criteria) this;
         }
 
