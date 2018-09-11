@@ -1,25 +1,27 @@
 package com.github.yxchange.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.github.yxchange.metadata.entity.Account;
 import com.github.yxchange.metadata.entity.AccountOperation;
 import com.github.yxchange.metadata.entity.AccountOrder;
 import com.github.yxchange.metadata.entity.Deposit;
 import com.github.yxchange.metadata.mapper.DepositMapper;
 import com.github.yxchange.service.AccountService;
 import com.github.yxchange.service.DepositService;
-import com.github.yxchange.service.WalletService;
 
 public class DeposiServiceImpl implements DepositService {
 	
 	@Autowired
 	private DepositMapper depositMapper;
 	
-	@Autowired
-	private WalletService walletService;
+//	@Autowired
+//	private WalletService walletService;
 	
 	@Autowired
 	private AccountService accountService;
@@ -45,15 +47,23 @@ public class DeposiServiceImpl implements DepositService {
 
 	@Override
 	@CacheEvict
+	@Transactional
 	public int doCharge(Integer depositId) {
 		Deposit deposit = getDepositById(depositId);
-		Account account = accountService.getAccountById(deposit.getAccountId());
 		AccountOrder accountOrder = new AccountOrder();
 		accountOrder.setAccountId(deposit.getAccountId());
 		accountOrder.setOrderId(deposit.getId().toString());
 		accountOrder.setChannelId(CHANNEL_ID);
 		AccountOperation accountOperation = new AccountOperation();
-		return 0;
+		accountOperation.setOrderId(accountOrder.getOrderId());
+		accountOperation.setAmount(deposit.getAmount());
+		accountOperation.setOperation(AccountOperation.Operation.FUND);
+		List<AccountOperation> operations = new ArrayList<>();
+		operations.add(accountOperation);
+		accountOrder.setOperations(operations);
+		accountService.addAccountOrder(accountOrder);
+		deposit.setState(Deposit.State.WAIT_COLLECTION);
+		return depositMapper.updateByPrimaryKey(deposit);
 	}
 
 	

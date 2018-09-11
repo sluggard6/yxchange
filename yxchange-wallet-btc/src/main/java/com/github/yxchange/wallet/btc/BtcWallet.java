@@ -55,4 +55,9 @@ public class BtcWallet implements Wallet {
 		return null;
 	}
 
+	@Override
+	public int getHeight(String transHash) {
+		return 0;
+	}
+
 }

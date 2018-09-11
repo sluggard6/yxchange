@@ -1,8 +1,9 @@
 package com.github.yxchange.metadata.entity;
 
 import java.math.BigDecimal;
-import java.util.Date;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Table;
 
 @Table(name = "deposit")
 public class Deposit extends Base{

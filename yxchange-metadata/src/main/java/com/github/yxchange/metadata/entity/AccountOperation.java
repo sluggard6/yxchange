@@ -311,4 +311,17 @@ public class AccountOperation {
     	FREEZE;
     }
 
+    public boolean isUnFreezed() {
+    	return Operation.FREEZE.ordinal() == this.operation && this.amount.compareTo(BigDecimal.ZERO) < 0;
+	}
+    
+    public Operation getOperationEnum() {
+    	for(Operation o : Operation.values()) {
+    		if(o.ordinal() == this.operation) {
+    			return o;
+    		}
+    	}
+    	throw new IllegalStateException("unknow operation : " + this.operation);
+    }
+
 }

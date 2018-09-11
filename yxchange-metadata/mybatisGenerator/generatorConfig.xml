@@ -133,7 +133,7 @@
 		<generatedKey column="id" sqlStatement="Mysql" identity="true" />
 	</table> -->
 	
- 	<table tableName="deposit">
+ 	<table tableName="account_operation">
 		<generatedKey column="id" sqlStatement="Mysql" identity="true" />
 	</table>
 		

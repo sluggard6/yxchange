@@ -3,6 +3,7 @@ package com.github.yxchange.service;
 import java.util.List;
 
 import com.github.yxchange.metadata.entity.Account;
+import com.github.yxchange.metadata.entity.AccountOrder;
 
 public interface AccountService {
 
@@ -17,5 +18,7 @@ public interface AccountService {
 	String getAddress(Integer accountId);
 
 	Account getAccountById(Integer accountId);
+
+	void addAccountOrder(AccountOrder accountOrder);
 	
 }

@@ -208,5 +208,30 @@ public class Account extends Base{
     public void setState(Integer state) {
         this.state = state;
     }
+    
+    public boolean addAvailable(BigDecimal amount) {
+    	if(amount == null) { throw new NullPointerException(); }
+    	this.available = this.available.add(amount);
+    	return checkAvailable();
+    }
+    
+    public boolean addFreezed(BigDecimal amount) {
+    	if(amount == null) { throw new NullPointerException(); }
+    	if(addAvailable(amount.negate())){
+    		this.freezed = this.freezed.add(amount);
+        	return checkFreezed();
+    	}else {
+    		return false;
+    	}
+    	
+    }
+    
+    public boolean checkAvailable() {
+    	return this.available.compareTo(BigDecimal.ZERO) >= 0;
+    }
+    
+    public boolean checkFreezed() {
+    	return this.freezed.compareTo(BigDecimal.ZERO) >= 0;
+    }
 
 }

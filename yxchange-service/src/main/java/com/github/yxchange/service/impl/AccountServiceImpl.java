@@ -8,10 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import com.github.yxchange.exception.FundNotEnoughException;
 import com.github.yxchange.metadata.entity.Account;
 import com.github.yxchange.metadata.entity.AccountExample;
+import com.github.yxchange.metadata.entity.AccountOperation;
+import com.github.yxchange.metadata.entity.AccountOrder;
 import com.github.yxchange.metadata.entity.Coin;
 import com.github.yxchange.metadata.mapper.AccountMapper;
+import com.github.yxchange.metadata.mapper.AccountOperationMapper;
+import com.github.yxchange.metadata.mapper.AccountOrderMapper;
 import com.github.yxchange.service.AccountService;
 import com.github.yxchange.service.CoinService;
 import com.github.yxchange.service.WalletService;
@@ -27,6 +32,12 @@ public class AccountServiceImpl implements AccountService {
 	
 	@Autowired
 	private WalletService walletService;
+	
+	@Autowired
+	private AccountOrderMapper accountOrderMapper;
+	
+	@Autowired
+	private AccountOperationMapper accountOperationMapper;
 	
 
 	@Override
@@ -92,6 +103,49 @@ public class AccountServiceImpl implements AccountService {
 	public Account getAccountById(Integer accountId) {
 		return accountMapper.selectByPrimaryKey(accountId);
 	}
-	
+
+
+	@Override
+	public void addAccountOrder(AccountOrder accountOrder) {
+		Account account = getAccountById(accountOrder.getAccountId());
+		accountOrder.setAvailableBefore(account.getAvailable());
+		accountOrder.setFreezedBefore(account.getFreezed());
+		for(AccountOperation accountOperation : accountOrder.getOperations()) {
+			doOperation(accountOperation, account);
+		}
+		accountOrder.setAvailableAfter(account.getAvailable());
+		accountOrder.setFreezedAfter(account.getFreezed());
+		accountOrderMapper.insert(accountOrder);
+		accountMapper.updateByPrimaryKey(account);
+	}
+
+
+	private void doOperation(AccountOperation accountOperation, Account account) {
+		checkUnFreezed(accountOperation);
+		accountOperation.setAvailableBefore(account.getAvailable());
+		accountOperation.setFreezedBefore(account.getFreezed());
+		if(accountOperation.getOperationEnum().equals(AccountOperation.Operation.FUND)) {
+			if(!account.addAvailable(accountOperation.getAmount())) {
+				throw new FundNotEnoughException();
+			}
+		}else {
+			if(!account.addFreezed(accountOperation.getAmount())) {
+				throw new FundNotEnoughException();
+			}
+		}
+		accountOperation.setAvailableAfter(account.getAvailable());
+		accountOperation.setFreezedAfter(account.getFreezed());
+		accountOperationMapper.insert(accountOperation);
+	}
+
+
+	private void checkUnFreezed(AccountOperation accountOperation) {
+		if(accountOperation.isUnFreezed()) {
+			BigDecimal result = accountOperationMapper.getUnFreezed(accountOperation.getFreezeOrderId());
+			if(result.add(accountOperation.getAmount()).compareTo(BigDecimal.ZERO) < 0) {
+				throw new FundNotEnoughException("can't unFreezed, unFreezed:" + result + ",amount:" + accountOperation.getAmount());
+			}
+		}
+	}
 
 }
