@@ -109,7 +109,7 @@
     </if>
   </select>
   <select id="getUnFreezed" resultType="java.math.BigDecimal">
-  	select sum(amount) from account_operation where freeze_order_id=${freezeOrderId} and id=${freezeOrderId}
+  	select sum(amount) from account_operation where freeze_order_id=${freezeOrderId} or (order_id=${freezeOrderId} and operation=1)
   </select>
   
   <delete id="deleteByExample" parameterType="com.github.yxchange.metadata.entity.AccountOperationExample" >

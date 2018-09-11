@@ -6,8 +6,10 @@ import java.util.function.Consumer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import com.github.yxchange.exception.FreezedException;
 import com.github.yxchange.exception.FundNotEnoughException;
 import com.github.yxchange.metadata.entity.Account;
 import com.github.yxchange.metadata.entity.AccountExample;
@@ -106,22 +108,24 @@ public class AccountServiceImpl implements AccountService {
 
 
 	@Override
+	@Transactional(rollbackFor=Exception.class)
 	public void addAccountOrder(AccountOrder accountOrder) {
 		Account account = getAccountById(accountOrder.getAccountId());
 		accountOrder.setAvailableBefore(account.getAvailable());
 		accountOrder.setFreezedBefore(account.getFreezed());
+		boolean freezed = false;
 		for(AccountOperation accountOperation : accountOrder.getOperations()) {
-			doOperation(accountOperation, account);
+			doOperation(accountOperation, account, freezed);
 		}
 		accountOrder.setAvailableAfter(account.getAvailable());
 		accountOrder.setFreezedAfter(account.getFreezed());
 		accountOrderMapper.insert(accountOrder);
-		accountMapper.updateByPrimaryKey(account);
+		int i = accountMapper.updateByPrimaryKeyOnCompare(account, accountOrder.getAvailableBefore(), accountOrder.getFreezedBefore());
+		if(i != 1) { throw new IllegalStateException("fail to update account, account has been changed!");}
 	}
 
 
-	private void doOperation(AccountOperation accountOperation, Account account) {
-		checkUnFreezed(accountOperation);
+	private void doOperation(AccountOperation accountOperation, Account account, boolean freezed) {
 		accountOperation.setAvailableBefore(account.getAvailable());
 		accountOperation.setFreezedBefore(account.getFreezed());
 		if(accountOperation.getOperationEnum().equals(AccountOperation.Operation.FUND)) {
@@ -129,6 +133,7 @@ public class AccountServiceImpl implements AccountService {
 				throw new FundNotEnoughException();
 			}
 		}else {
+			checkFreezed(accountOperation, freezed);
 			if(!account.addFreezed(accountOperation.getAmount())) {
 				throw new FundNotEnoughException();
 			}
@@ -139,11 +144,19 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 
-	private void checkUnFreezed(AccountOperation accountOperation) {
-		if(accountOperation.isUnFreezed()) {
-			BigDecimal result = accountOperationMapper.getUnFreezed(accountOperation.getFreezeOrderId());
-			if(result.add(accountOperation.getAmount()).compareTo(BigDecimal.ZERO) < 0) {
-				throw new FundNotEnoughException("can't unFreezed, unFreezed:" + result + ",amount:" + accountOperation.getAmount());
+	private void checkFreezed(AccountOperation accountOperation, boolean freezed) {
+		if(accountOperation.isFreezeOreration()) {
+			if(accountOperation.getAmount().compareTo(BigDecimal.ZERO) >= 0) {
+				if(freezed) {
+					throw new FreezedException("only one freeze operation in a order");
+				}else {
+					freezed = true;
+				}
+			}else {
+				BigDecimal result = accountOperationMapper.getUnFreezed(accountOperation.getFreezeOrderId());
+				if(result.add(accountOperation.getAmount()).compareTo(BigDecimal.ZERO) < 0) {
+					throw new FreezedException("can't unFreezed, unFreezed:" + result + ",amount:" + accountOperation.getAmount());
+				}
 			}
 		}
 	}

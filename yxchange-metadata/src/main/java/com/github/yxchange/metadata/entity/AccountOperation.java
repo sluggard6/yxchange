@@ -311,9 +311,10 @@ public class AccountOperation {
     	FREEZE;
     }
 
-    public boolean isUnFreezed() {
-    	return Operation.FREEZE.ordinal() == this.operation && this.amount.compareTo(BigDecimal.ZERO) < 0;
+	public boolean isFreezeOreration() {
+		return Operation.FREEZE.ordinal() == this.operation;
 	}
+
     
     public Operation getOperationEnum() {
     	for(Operation o : Operation.values()) {
