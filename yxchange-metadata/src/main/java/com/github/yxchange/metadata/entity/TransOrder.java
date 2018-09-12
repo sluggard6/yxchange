@@ -200,4 +200,8 @@ public class TransOrder {
     public void setModifytime(Date modifytime) {
         this.modifytime = modifytime;
     }
+    
+    public enum Category {
+    	
+    }
 }
