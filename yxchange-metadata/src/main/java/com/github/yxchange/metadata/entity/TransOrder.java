@@ -5,10 +5,7 @@ import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "trans_order")
-public class TransOrder {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class TransOrder extends Base{
 
     /**
      * 账号id
@@ -35,16 +32,8 @@ public class TransOrder {
      * 状态，0-新建，1-部分匹配，2-匹配完成，3-已完成，4-已撤单
      */
     private Integer state;
-
-    /**
-     * 创建时间
-     */
-    private Date createtime;
-
-    /**
-     * 最后更改时间
-     */
-    private Date modifytime;
+    
+    private transient long timestamp;
 
     public TransOrder(Integer id, Integer accountId, Integer category, BigDecimal price, BigDecimal lots, Integer state, Date createtime, Date modifytime) {
         this.id = id;
@@ -164,44 +153,29 @@ public class TransOrder {
     public void setState(Integer state) {
         this.state = state;
     }
-
-    /**
-     * 获取创建时间
-     *
-     * @return createtime - 创建时间
-     */
-    public Date getCreatetime() {
-        return createtime;
+    
+    public boolean isAsk() {
+    	return category == Category.ASK.ordinal();
     }
-
-    /**
-     * 设置创建时间
-     *
-     * @param createtime 创建时间
-     */
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
-    }
-
-    /**
-     * 获取最后更改时间
-     *
-     * @return modifytime - 最后更改时间
-     */
-    public Date getModifytime() {
-        return modifytime;
-    }
-
-    /**
-     * 设置最后更改时间
-     *
-     * @param modifytime 最后更改时间
-     */
-    public void setModifytime(Date modifytime) {
-        this.modifytime = modifytime;
+    
+    public boolean isBid() {
+    	return category == Category.BID.ordinal();
     }
     
     public enum Category {
-    	
+    	ASK,BID;
     }
+
+	public long getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(long timestamp) {
+		this.timestamp = timestamp;
+	}
+
+	public boolean isDone() {
+		return lots.compareTo(BigDecimal.ZERO) == 0;
+	}
+    
 }

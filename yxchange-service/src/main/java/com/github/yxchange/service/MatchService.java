@@ -7,8 +7,6 @@ public interface MatchService {
 	
 	CurrencyPair getCurrencyPair();
 	
-	MatchService getInstance(CurrencyPair currencyPair);
-	
 	void newTransOrder(TransOrder transOrder);
 	
 	void cancelTransOrder(Integer orderId, int category);

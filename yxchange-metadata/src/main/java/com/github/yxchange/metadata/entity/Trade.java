@@ -77,7 +77,14 @@ public class Trade {
         super();
     }
 
-    /**
+    public Trade(Integer bidOrderId, Integer askOrderId, BigDecimal price, BigDecimal lots) {
+    	this.bidOrderId = bidOrderId;
+    	this.askOrderId = askOrderId;
+    	this.price = price;
+    	this.lots = lots;
+	}
+
+	/**
      * @return id
      */
     public Integer getId() {

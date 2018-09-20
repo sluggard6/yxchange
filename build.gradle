@@ -83,8 +83,15 @@ project(':yxchange-wallet-btc'){
 project(':yxchange-service'){
     dependencies {
         compile 'org.springframework.boot:spring-boot-starter-redis:1.4.7.RELEASE'
+        compile 'com.alibaba.spring.boot:dubbo-spring-boot-starter:2.0.0'
         compile project(':yxchange-wallet')
 		compile project(':yxchange-metadata')
+	}
+}
+
+project(':yxchange-match'){
+	dependencies {
+		compile project(':yxchange-service')
 	}
 }
 
