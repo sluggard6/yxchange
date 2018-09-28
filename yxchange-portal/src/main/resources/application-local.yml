@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://13.114.202.163:3306/yxchange?characterEncoding=utf8&useSSL=false
+    url: jdbc:mysql://139.180.196.97:3306/yxchange?characterEncoding=utf8&useSSL=false
     username: admin
-    password: 'viewfin@2018^&*'
+    password: 'admin@2018!'
     driver-class-name: com.mysql.jdbc.Driver
   redis:
     host: 13.114.202.163

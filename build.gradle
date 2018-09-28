@@ -18,6 +18,7 @@ allprojects  {
 	
     group = 'com.github.yxchange'
     version = '0.1.0'
+    
 }
 
 subprojects {
@@ -40,6 +41,7 @@ subprojects {
 	repositories {
     	mavenLocal()
     	maven { url "http://repo.tulipex.com:1153/nexus/content/groups/public/"}
+    	maven { url "http://maven.aliyun.com/nexus/content/groups/public"}
     	maven { url "http://repo.maven.apache.org/maven2" }
 	}
 
@@ -57,6 +59,7 @@ project(':yxchange-portal'){
 	dependencies {
 		compile project(':yxchange-service')
 		compile('org.springframework.boot:spring-boot-starter-web')
+        compile 'org.springframework.boot:spring-boot-starter-data-redis'
 		compile 'com.auth0:auth0-spring-mvc:1.2.0'
 		compile 'com.auth0:mvc-auth-commons:1.+'
 		compile 'com.auth0:java-jwt:3.4.0'
@@ -82,7 +85,6 @@ project(':yxchange-wallet-btc'){
 
 project(':yxchange-service'){
     dependencies {
-        compile 'org.springframework.boot:spring-boot-starter-redis:1.4.7.RELEASE'
         compile 'com.alibaba.spring.boot:dubbo-spring-boot-starter:2.0.0'
         compile project(':yxchange-wallet')
 		compile project(':yxchange-metadata')
