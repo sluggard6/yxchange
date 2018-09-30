@@ -1,6 +1,6 @@
 package com.github.yxchange.exception;
 
-public class FundNotEnoughException extends RuntimeException {
+public class FundNotEnoughException extends Exception {
 
 	/**
 	 * 

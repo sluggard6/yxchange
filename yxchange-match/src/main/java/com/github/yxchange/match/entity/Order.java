@@ -1,5 +1,6 @@
 package com.github.yxchange.match.entity;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public abstract class Order {
@@ -8,16 +9,16 @@ public abstract class Order {
 	
 	private Long userId;
 	
-	private BigInteger price;
+	private BigDecimal price;
 	
-	private BigInteger amount;
+	private BigDecimal amount;
 	
 	private long timestamp;
 	
 	public abstract String getType();
 	
 	public boolean isDone() {
-		return amount.compareTo(BigInteger.ZERO) == 0;
+		return amount.compareTo(BigDecimal.ZERO) == 0;
 	}
 	
 	public String getId() {
@@ -36,19 +37,19 @@ public abstract class Order {
 		this.userId = userId;
 	}
 
-	public BigInteger getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(BigInteger price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 
-	public BigInteger getAmount() {
+	public BigDecimal getAmount() {
 		return amount;
 	}
 
-	public void setAmount(BigInteger amount) {
+	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
 	}
 

@@ -2,6 +2,7 @@ package com.github.yxchange.service;
 
 import java.util.List;
 
+import com.github.yxchange.exception.FundNotEnoughException;
 import com.github.yxchange.metadata.entity.Account;
 import com.github.yxchange.metadata.entity.AccountOrder;
 
@@ -19,6 +20,6 @@ public interface AccountService {
 
 	Account getAccountById(Integer accountId);
 
-	void addAccountOrder(AccountOrder accountOrder);
+	void addAccountOrder(AccountOrder accountOrder) throws FundNotEnoughException;
 	
 }

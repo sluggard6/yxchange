@@ -54,4 +54,9 @@ public class Coin implements Serializable{
 		return this.walletClassName;
 	}
 
+	@Override
+	public String toString() {
+		return name;
+	}
+
 }

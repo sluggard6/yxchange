@@ -8,6 +8,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.github.yxchange.exception.FundNotEnoughException;
 import com.github.yxchange.metadata.entity.AccountOperation;
 import com.github.yxchange.metadata.entity.AccountOrder;
 import com.github.yxchange.metadata.entity.Deposit;
@@ -48,7 +49,7 @@ public class DeposiServiceImpl implements DepositService {
 	@Override
 	@CacheEvict
 	@Transactional
-	public int doCharge(Integer depositId) {
+	public int doCharge(Integer depositId) throws FundNotEnoughException {
 		Deposit deposit = getDepositById(depositId);
 		AccountOrder accountOrder = new AccountOrder();
 		accountOrder.setAccountId(deposit.getAccountId());

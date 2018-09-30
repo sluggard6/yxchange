@@ -1,5 +1,6 @@
 package com.github.yxchange.service;
 
+import com.github.yxchange.exception.FundNotEnoughException;
 import com.github.yxchange.metadata.entity.Deposit;
 
 public interface DepositService {
@@ -10,6 +11,6 @@ public interface DepositService {
 	
 	int newDeposit(Deposit deposit);
 	
-	int doCharge(Integer depositId);
+	int doCharge(Integer depositId) throws FundNotEnoughException;
 
 }

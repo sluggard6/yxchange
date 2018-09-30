@@ -131,9 +131,11 @@ drop table if exists `trans_order`;
 create table `trans_order` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `account_id` int(10) not null comment '账号id',
+  `base_id` int(10) not null comment '要买/卖的币种id',
+  `counter_id` int(10) not null comment '要支付/收到的币种id',
   `category` int(1) not null comment '交易类型，0-ask,1-bid',
   `price` DECIMAL(10,10) not null comment '交易价格',
-  `lots` DECIMAL(10,10) not null comment '交易数量',
+  `amount` DECIMAL(10,10) not null comment '交易数量',
   `state` int(2) not null default 0 comment '状态，0-新建，1-部分匹配，2-匹配完成，3-已完成，4-已撤单',
   `createtime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `modifytime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后更改时间',
@@ -150,7 +152,7 @@ create table `trade` (
   `taker_order_id` int(10) not null comment '成交方id',
   `maker_order_id` int(10) not null comment '做市方id',
   `price` DECIMAL(10,10) not null comment '成交价格',
-  `lots` DECIMAL(10,10) not null comment '成交数量',
+  `amount` DECIMAL(10,10) not null comment '成交数量',
   `createtime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `modifytime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后更改时间',
   PRIMARY KEY (`id`)

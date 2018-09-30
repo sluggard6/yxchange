@@ -1,6 +1,6 @@
 package com.github.yxchange.match.entity;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 import lombok.Getter;
@@ -12,22 +12,28 @@ public class Trade{
 	
 	private final String id = UUID.randomUUID().toString().replaceAll("-", "");
 	
-	private final String buyingId;
+	private final String bidOrderId;
 	
-	private final String sellingId;
+	private final String askOrderId;
 	
-	private final BigInteger price;
+	private final BigDecimal price;
 	
-	private final BigInteger amount;
+	private final BigDecimal amount;
+	
+	private final String takerOrderId;
+	
+	private final String makerOrderId;
 	
 	private final long timestamp = System.currentTimeMillis();
 
-	public Trade(String buyingId, String sellingId, BigInteger price, BigInteger amount) {
+	public Trade(String bidOrderId, String askOrderId, BigDecimal price, BigDecimal amount, String makerOrderId, String takerOrderId) {
 		super();
-		this.buyingId = buyingId;
-		this.sellingId = sellingId;
+		this.bidOrderId = bidOrderId;
+		this.askOrderId = askOrderId;
 		this.price = price;
 		this.amount = amount;
+		this.makerOrderId = makerOrderId;
+		this.takerOrderId = takerOrderId;
 	}
 
 }

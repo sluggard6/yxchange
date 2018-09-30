@@ -7,8 +7,11 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
+import com.github.yxchange.common.CurrencyPair;
 import com.github.yxchange.metadata.entity.Coin;
 import com.github.yxchange.metadata.entity.CoinExample;
+import com.github.yxchange.metadata.entity.Trade;
+import com.github.yxchange.metadata.entity.TransOrder;
 import com.github.yxchange.metadata.mapper.CoinMapper;
 import com.github.yxchange.service.CoinService;
 
@@ -36,58 +39,43 @@ public class CoinServiceImpl implements CoinService {
 	}
 
 	@Override
-	@Cacheable("coin")
+	@Cacheable("name")
 	public Coin getCoinByName(String coinName) {
 		CoinExample coinExample = new CoinExample();
 		CoinExample.Criteria criteria = coinExample.createCriteria();
 		criteria.andNameEqualTo(coinName);
 		return coinMapper.selectOneByExample(coinExample);
 	}
+
+	@Override
+	public CurrencyPair getCurrencyPair(String currencyPair) {
+	    int split = currencyPair.indexOf('/');
+	    if (split < 1) {
+	      throw new IllegalArgumentException(
+	          "Could not parse currency pair from '" + currencyPair + "'");
+	    }
+	    String baseName = currencyPair.substring(0, split);
+	    String counterName = currencyPair.substring(split + 1);
+	    Coin base = getCoinByName(baseName);
+	    Coin counter = getCoinByName(counterName);
+		return new CurrencyPair(base, counter);
+	}
 	
-//	private Map<String, Coin> coinMap = new LinkedHashMap<>();
-//	
-//	private List<String> coinNameTemplate = new ArrayList<>();
-//	
-//	@Autowired
-//	private CoinMapper coinMapper;
-//	
-//	private void init() {
-//		synchronized (coinMap) {
-//			coinMap.clear();
-//			coinNameTemplate.clear();
-//			coinMapper.selectAll().forEach(coin -> {
-//				System.out.println(coin);
-//				coinMap.put(coin.getName(), coin);
-//				coinNameTemplate.add(coin.getName());
-//			});
-//		}
-//	}
-//
-//	@Override
-//	@Cacheable
-//	public List<Coin> getAllCoin() {
-//		if(coinMap.isEmpty()) {init();}
-//		List<Coin> coins = new ArrayList<>();
-//		coins.addAll(coinMap.values());
-//		return coins;
-//	}
-//
-//	@Override
-//	public int addCoin(Coin coin) {
-//		int i = coinMapper.insert(coin);
-//		init();
-//		return i;
-//	}
-//
-//	@Override
-//	public boolean contains(String coinName) {
-//		return coinNameTemplate.contains(coinName);
-//	}
-//	
-//
-//	@Override
-//	public Coin getCoinByName(String coinName) {
-//		return coinMap.get(coinName);
-//	}
+	@Override
+	public CurrencyPair getCurrencyPair(TransOrder transOrder) {
+		return new CurrencyPair(getCoin(transOrder.getBaseId()), getCoin(transOrder.getCounterId()));
+	}
+
+	@Override
+	public CurrencyPair getCurrencyPair(Trade trade) {
+//		return new CurrencyPair(trade.get, counter);
+		throw new UnsupportedOperationException("还没来得及实现");
+	}
+	
+	@Override
+	@Cacheable("id")
+	public Coin getCoin(Integer id) {
+		return coinMapper.selectByPrimaryKey(id);
+	}
 
 }

@@ -109,7 +109,7 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	@Transactional(rollbackFor=Exception.class)
-	public void addAccountOrder(AccountOrder accountOrder) {
+	public void addAccountOrder(AccountOrder accountOrder) throws FundNotEnoughException {
 		Account account = getAccountById(accountOrder.getAccountId());
 		accountOrder.setAvailableBefore(account.getAvailable());
 		accountOrder.setFreezedBefore(account.getFreezed());
@@ -125,7 +125,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 
-	private void doOperation(AccountOperation accountOperation, Account account, boolean freezed) {
+	private void doOperation(AccountOperation accountOperation, Account account, boolean freezed) throws FundNotEnoughException {
 		accountOperation.setAvailableBefore(account.getAvailable());
 		accountOperation.setFreezedBefore(account.getFreezed());
 		if(accountOperation.getOperationEnum().equals(AccountOperation.Operation.FUND)) {

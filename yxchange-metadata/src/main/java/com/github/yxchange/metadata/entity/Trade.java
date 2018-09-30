@@ -48,19 +48,9 @@ public class Trade {
     /**
      * 成交数量
      */
-    private BigDecimal lots;
+    private BigDecimal amount;
 
-    /**
-     * 创建时间
-     */
-    private Date createtime;
-
-    /**
-     * 最后更改时间
-     */
-    private Date modifytime;
-
-    public Trade(Integer id, String matchId, Integer askOrderId, Integer bidOrderId, Integer takerOrderId, Integer makerOrderId, BigDecimal price, BigDecimal lots, Date createtime, Date modifytime) {
+    public Trade(Integer id, String matchId, Integer askOrderId, Integer bidOrderId, Integer takerOrderId, Integer makerOrderId, BigDecimal price, BigDecimal amount, Date createtime, Date modifytime) {
         this.id = id;
         this.matchId = matchId;
         this.askOrderId = askOrderId;
@@ -68,20 +58,18 @@ public class Trade {
         this.takerOrderId = takerOrderId;
         this.makerOrderId = makerOrderId;
         this.price = price;
-        this.lots = lots;
-        this.createtime = createtime;
-        this.modifytime = modifytime;
+        this.amount = amount;
     }
 
     public Trade() {
         super();
     }
 
-    public Trade(Integer bidOrderId, Integer askOrderId, BigDecimal price, BigDecimal lots) {
+    public Trade(Integer bidOrderId, Integer askOrderId, BigDecimal price, BigDecimal amount) {
     	this.bidOrderId = bidOrderId;
     	this.askOrderId = askOrderId;
     	this.price = price;
-    	this.lots = lots;
+    	this.amount = amount;
 	}
 
 	/**
@@ -209,54 +197,19 @@ public class Trade {
     /**
      * 获取成交数量
      *
-     * @return lots - 成交数量
+     * @return amount - 成交数量
      */
-    public BigDecimal getLots() {
-        return lots;
+    public BigDecimal getAmount() {
+        return amount;
     }
 
     /**
      * 设置成交数量
      *
-     * @param lots 成交数量
+     * @param amount 成交数量
      */
-    public void setLots(BigDecimal lots) {
-        this.lots = lots;
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
 
-    /**
-     * 获取创建时间
-     *
-     * @return createtime - 创建时间
-     */
-    public Date getCreatetime() {
-        return createtime;
-    }
-
-    /**
-     * 设置创建时间
-     *
-     * @param createtime 创建时间
-     */
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
-    }
-
-    /**
-     * 获取最后更改时间
-     *
-     * @return modifytime - 最后更改时间
-     */
-    public Date getModifytime() {
-        return modifytime;
-    }
-
-    /**
-     * 设置最后更改时间
-     *
-     * @param modifytime 最后更改时间
-     */
-    public void setModifytime(Date modifytime) {
-        this.modifytime = modifytime;
-    }
 }

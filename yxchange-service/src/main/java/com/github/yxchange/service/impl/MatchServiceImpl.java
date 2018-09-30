@@ -1,42 +1,48 @@
 package com.github.yxchange.service.impl;
 
-import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import org.apache.dubbo.common.Constants;
+import org.apache.dubbo.config.annotation.Reference;
+import org.apache.dubbo.rpc.RpcContext;
 import com.github.yxchange.common.CurrencyPair;
 import com.github.yxchange.metadata.entity.TransOrder;
+import com.github.yxchange.service.CoinService;
 import com.github.yxchange.service.MatchService;
 
-public class MatchServiceImpl implements MatchService, ApplicationContextAware{
+public class MatchServiceImpl implements MatchService{
 	
 	private CurrencyPair currencyPair;
 	
-	private ApplicationContext applicationContext;
-
+	
+	@Reference
+	private MatchService provider;
+	
+	@Autowired
+	private CoinService coinService;
+	
 	@Override
 	public CurrencyPair getCurrencyPair() {
 		return currencyPair;
 	}
 
 	@Override
-	public void newTransOrder(TransOrder transOrder) {
-		
+	public boolean newTransOrder(TransOrder transOrder) {
+		RpcContext.getContext().setAttachment(Constants.REQUEST_TAG_KEY, coinService.getCurrencyPair(transOrder).toString());
+		return provider.newTransOrder(transOrder);
 	}
 
 	@Override
-	public void cancelTransOrder(Integer orderId, int category) {
-		
+	public boolean cancelTransOrder(TransOrder transOrder) {
+		RpcContext.getContext().setAttachment(Constants.REQUEST_TAG_KEY, coinService.getCurrencyPair(transOrder).toString());
+		return provider.cancelTransOrder(transOrder);
 	}
-
-//	@Override
-//	public MatchService getInstance(CurrencyPair currencyPair) {
-//		return applicationContext.getBean(currencyPair.toString(), MatchService.class);
-//	}
 
 	@Override
-	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		this.applicationContext = applicationContext;
+	public boolean cancelTransOrder(Integer orderId, int category) {
+		throw new UnsupportedOperationException("proxy implements unsupport this method");
 	}
+	
+//	private CurrencyPair buildCurr
 
 }
