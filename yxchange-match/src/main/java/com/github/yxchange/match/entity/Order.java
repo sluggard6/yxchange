@@ -1,7 +1,6 @@
 package com.github.yxchange.match.entity;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
 public abstract class Order {
 	

@@ -14,7 +14,6 @@ public class MatchServiceImpl implements MatchService{
 	
 	private CurrencyPair currencyPair;
 	
-	
 	@Reference
 	private MatchService provider;
 	

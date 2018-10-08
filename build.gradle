@@ -92,8 +92,13 @@ project(':yxchange-service'){
 }
 
 project(':yxchange-match'){
+
+    apply plugin: 'org.springframework.boot'
+    
 	dependencies {
 		compile project(':yxchange-service')
+        compile('org.springframework.boot:spring-boot-starter')
+        runtime('org.springframework.boot:spring-boot-devtools')
 	}
 }
 

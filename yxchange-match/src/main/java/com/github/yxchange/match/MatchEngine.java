@@ -10,6 +10,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.PriorityBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.dubbo.config.annotation.Service;
+
 import com.github.yxchange.common.CurrencyPair;
 import com.github.yxchange.match.entity.AskOrder;
 import com.github.yxchange.match.entity.BidOrder;
@@ -20,12 +22,14 @@ import com.github.yxchange.match.event.OrderEvent;
 import com.github.yxchange.match.event.TradeEvent;
 import com.github.yxchange.match.vo.Action;
 import com.github.yxchange.metadata.entity.TransOrder;
+import com.github.yxchange.metadata.entity.TransOrder.Category;
 import com.github.yxchange.service.MatchService;
 
 import lombok.Setter;
 
-public enum MatchEngine implements MatchService {
-	ENGIN;
+@Service(timeout = 5000)
+public class MatchEngine implements MatchService {
+//	ENGIN;
 	
 	private LinkedBlockingQueue<Action> preQueue = new LinkedBlockingQueue<>();
 	
@@ -226,19 +230,27 @@ public enum MatchEngine implements MatchService {
 
 	@Override
 	public CurrencyPair getCurrencyPair() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public boolean newTransOrder(TransOrder transOrder) {
-		// TODO Auto-generated method stub
+//		transOrder
+//		newAction(action);
 		return false;
 	}
 
 	@Override
 	public boolean cancelTransOrder(Integer orderId, int category) {
-		// TODO Auto-generated method stub
+		Order order;
+		if(Category.ASK.ordinal() == category) {
+			order = cancelOrderIter(askQueue, orderId.toString());
+		}else if(Category.BID.ordinal() == category) {
+			order = cancelOrderIter(bidQueue, orderId.toString());
+		}else {
+			return false;
+		}
+		if(order != null) return true;
 		return false;
 	}
 

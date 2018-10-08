@@ -5,7 +5,6 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
-import org.apache.dubbo.config.annotation.Reference;
 import com.github.yxchange.exception.OrderNotFoundException;
 import com.github.yxchange.metadata.entity.TransOrder;
 import com.github.yxchange.metadata.entity.TransOrder.State;
@@ -19,7 +18,7 @@ public class TransOrderServiceImpl implements TransOrderService {
 	@Autowired
 	private TransOrderMapper transOrderMapper;
 	
-	@Reference()
+//	@Reference()
 	private MatchService matchService;
 	
 	@Override

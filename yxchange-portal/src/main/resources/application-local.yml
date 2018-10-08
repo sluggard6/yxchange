@@ -19,3 +19,16 @@ logging:
     root: INFO
     org.mybatis: DEBUG
     com.github.yxchange: DEBUG
+server:
+  port: 9090
+dubbo:
+  application:
+    name: match-engin
+    qos:
+      port: 22223
+  registry:
+    address: zookeeper://139.180.196.97:2181
+  protocol:
+    name: dubbo
+    port: 28081
+  
