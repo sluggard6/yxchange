@@ -12,7 +12,7 @@ public abstract class Order {
 	
 	private BigDecimal amount;
 	
-	private long timestamp;
+	private long timestamp = System.currentTimeMillis();
 	
 	public abstract String getType();
 	
@@ -59,6 +59,8 @@ public abstract class Order {
 	public void setTimestamp(long timestamp) {
 		this.timestamp = timestamp;
 	}
+	
+	public abstract boolean isAsk();
 	
 	public void negate() {
 		amount = amount.negate();

@@ -21,4 +21,9 @@ public class AskOrder extends Order implements Comparable<AskOrder>{
 		return "ask";
 	}
 
+	@Override
+	public boolean isAsk() {
+		return true;
+	}
+
 }

@@ -6,13 +6,18 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.PriorityBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.dubbo.config.annotation.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.github.yxchange.common.CurrencyPair;
+import com.github.yxchange.match.adapt.OrderFactory;
 import com.github.yxchange.match.entity.AskOrder;
 import com.github.yxchange.match.entity.BidOrder;
 import com.github.yxchange.match.entity.Order;
@@ -22,7 +27,6 @@ import com.github.yxchange.match.event.OrderEvent;
 import com.github.yxchange.match.event.TradeEvent;
 import com.github.yxchange.match.vo.Action;
 import com.github.yxchange.metadata.entity.TransOrder;
-import com.github.yxchange.metadata.entity.TransOrder.Category;
 import com.github.yxchange.service.MatchService;
 
 import lombok.Setter;
@@ -38,6 +42,12 @@ public class MatchEngine implements MatchService {
 	private PriorityBlockingQueue<Order> askQueue = new PriorityBlockingQueue<>();
 	
 	private ConcurrentHashMap<String, Integer> cancelMap = new ConcurrentHashMap<>();
+	
+	private static final long TIME_OUT = 5000;
+	
+	@Autowired()
+	@Qualifier("TransOrderFactory")
+	private OrderFactory<TransOrder> transOrderFactory;
 	
 	@Setter
 	private EventService eventService;
@@ -56,7 +66,15 @@ public class MatchEngine implements MatchService {
 						Action action = preQueue.poll(1l, TimeUnit.MINUTES);
 						if(action != null) {
 							if(action.isCancal()) {
-								cancelOrder(action.getOrderId());
+								Order order;
+								if(action.isAsk()) {
+									order = cancelOrderIter(askQueue, action.getOrderId());
+								}else {
+									order = cancelOrderIter(bidQueue, action.getOrderId());
+								}
+								action.setFutureResult(order != null);
+								Thread.currentThread().notifyAll();
+//								cancelOrder(action.getOrderId());
 							}else {
 								newOrder(action.getOrder());
 							}
@@ -69,9 +87,10 @@ public class MatchEngine implements MatchService {
 		}).start();
 	}
 	
-	public void newAction(Action action) throws InterruptedException {
+	public Future<Boolean> newAction(Action action) throws InterruptedException {
 		if(action == null) throw new NullPointerException();
 		preQueue.put(action);
+		return action.getFuture();
 	}
 	
 	public void stop() {
@@ -103,6 +122,13 @@ public class MatchEngine implements MatchService {
 //		}
 //	}
 	
+	/**
+	 * @deprecated "不推荐使用，取消订单尽量提前确实是买单还是卖单"
+	 * @param orderId
+	 * @return
+	 */
+	@SuppressWarnings("unused")
+	@Deprecated()
 	private boolean cancelOrder(String orderId) {
 			return (cancelOrderIter(bidQueue, orderId) != null) || (cancelOrderIter(askQueue, orderId) != null);
 	}
@@ -236,28 +262,48 @@ public class MatchEngine implements MatchService {
 	@Override
 	public boolean newTransOrder(TransOrder transOrder) {
 //		transOrder
-//		newAction(action);
+		try {
+			newAction(new Action(transOrderFactory.getOrder(transOrder)));
+			return true;
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 
 	@Override
 	public boolean cancelTransOrder(Integer orderId, int category) {
-		Order order;
-		if(Category.ASK.ordinal() == category) {
-			order = cancelOrderIter(askQueue, orderId.toString());
-		}else if(Category.BID.ordinal() == category) {
-			order = cancelOrderIter(bidQueue, orderId.toString());
-		}else {
-			return false;
+		long start = System.currentTimeMillis();
+		try {
+			Future<Boolean> future = newAction(new Action(orderId, category));
+			while(!future.isDone()) {
+				//超时判断
+				if(System.currentTimeMillis() - start > TIME_OUT) {
+					return false;
+				}
+				Thread.currentThread().wait();
+			}
+			return future.get();
+		} catch (InterruptedException | ExecutionException e) {
+			e.printStackTrace();
 		}
-		if(order != null) return true;
 		return false;
+		
+//		Order order;
+//		if(Category.ASK.ordinal() == category) {
+//			order = cancelOrderIter(askQueue, orderId.toString());
+//		}else if(Category.BID.ordinal() == category) {
+//			order = cancelOrderIter(bidQueue, orderId.toString());
+//		}else {
+//			return false;
+//		}
+//		if(order != null) return true;
+//		return false;
 	}
 
 	@Override
 	public boolean cancelTransOrder(TransOrder transOrder) {
 		return cancelTransOrder(transOrder.getId(), transOrder.getCategory());
 	}
-
 
 }

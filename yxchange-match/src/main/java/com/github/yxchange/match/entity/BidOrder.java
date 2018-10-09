@@ -21,4 +21,9 @@ public class BidOrder extends Order implements Comparable<BidOrder> {
 		return "bid";
 	}
 
+	@Override
+	public boolean isAsk() {
+		return false;
+	}
+
 }

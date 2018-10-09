@@ -5,9 +5,9 @@ spring:
     password: 'admin@2018!'
     driver-class-name: com.mysql.jdbc.Driver
   redis:
-    host: 13.114.202.163
+    host: 139.180.196.97
     port: 6379
-    password: testdevpass
+    password: 'vultr@redis!'
 mybatis:
   type-aliases-package: com.github.yxchange.metadata
   mapper-locations: classpath:mybatis_mapper/*.xml
