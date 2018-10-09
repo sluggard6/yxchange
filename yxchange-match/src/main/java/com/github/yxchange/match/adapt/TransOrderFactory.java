@@ -8,7 +8,7 @@ import com.github.yxchange.match.entity.Order;
 import com.github.yxchange.metadata.entity.TransOrder;
 import com.github.yxchange.metadata.entity.TransOrder.Category;
 
-@Component
+@Component("transOrderFactory")
 public class TransOrderFactory implements OrderFactory<TransOrder> {
 
 	@Override

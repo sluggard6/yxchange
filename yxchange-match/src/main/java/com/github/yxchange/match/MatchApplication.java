@@ -7,6 +7,8 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.event.ContextClosedEvent;
 
+import com.github.yxchange.service.MatchService;
+
 import lombok.extern.slf4j.Slf4j;
 
 @SpringBootApplication
@@ -21,6 +23,11 @@ public class MatchApplication {
 			@Override
 			public void onApplicationEvent(ContextClosedEvent event) {
 				log.info("Context is closed.");
+				MatchService matchService = cac.getBean(MatchService.class);
+				if(matchService instanceof MatchEngine) {
+					((MatchEngine) matchService).stop();
+					log.info("engine stoped");
+				}
 			}
 			
 		});

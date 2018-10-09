@@ -14,7 +14,6 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.github.yxchange.common.CurrencyPair;
 import com.github.yxchange.match.adapt.OrderFactory;
@@ -46,7 +45,6 @@ public class MatchEngine implements MatchService {
 	private static final long TIME_OUT = 5000;
 	
 	@Autowired()
-	@Qualifier("TransOrderFactory")
 	private OrderFactory<TransOrder> transOrderFactory;
 	
 	@Setter

@@ -50,7 +50,7 @@ public class Trade {
      */
     private BigDecimal amount;
 
-    public Trade(Integer id, String matchId, Integer askOrderId, Integer bidOrderId, Integer takerOrderId, Integer makerOrderId, BigDecimal price, BigDecimal amount, Date createtime, Date modifytime) {
+    public Trade(Integer id, String matchId, Integer askOrderId, Integer bidOrderId, Integer takerOrderId, Integer makerOrderId, BigDecimal price, BigDecimal amount) {
         this.id = id;
         this.matchId = matchId;
         this.askOrderId = askOrderId;
