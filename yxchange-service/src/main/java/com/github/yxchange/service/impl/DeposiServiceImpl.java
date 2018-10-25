@@ -61,7 +61,7 @@ public class DeposiServiceImpl implements DepositService {
 		accountOperation.setOperation(AccountOperation.Operation.FUND);
 		List<AccountOperation> operations = new ArrayList<>();
 		operations.add(accountOperation);
-		accountOrder.setOperations(operations);
+		accountOrder.addOperations(operations);
 		accountService.addAccountOrder(accountOrder);
 		deposit.setState(Deposit.State.WAIT_COLLECTION);
 		return depositMapper.updateByPrimaryKey(deposit);

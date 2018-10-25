@@ -23,6 +23,7 @@ drop table if exists `coin`;
 create table `coin`(
   `id` int(10) NOT NULL,
   `name` varchar(5) not null comment '代币名称',
+  `wallet_class_name` varchar(100) comment '钱包类路径',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name_UNIQUE` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='数字货币表';

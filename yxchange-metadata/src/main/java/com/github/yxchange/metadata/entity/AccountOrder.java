@@ -1,6 +1,7 @@
 package com.github.yxchange.metadata.entity;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -212,8 +213,14 @@ public class AccountOrder extends Base{
 		return operations;
 	}
 
-	public void setOperations(List<AccountOperation> operations) {
-		this.operations = operations;
+	public synchronized void addOperations(List<AccountOperation> operations) {
+		if(operations == null) operations = new ArrayList<>();
+		operations.addAll(operations);
+	}
+
+	public synchronized void addOperation(AccountOperation accountOperation) {
+		if(operations == null) operations = new ArrayList<>();
+		operations.add(accountOperation);
 	}
 
 }

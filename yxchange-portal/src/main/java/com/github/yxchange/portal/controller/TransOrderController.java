@@ -3,6 +3,7 @@ package com.github.yxchange.portal.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.yxchange.common.HttpResult;
@@ -18,12 +19,13 @@ public class TransOrderController {
 	@Autowired
 	private TransOrderService transOrderService;
 	
-	@RequestMapping("takeOrder")
+	@RequestMapping(value="takeOrder", method=RequestMethod.POST)
 	public HttpResult<TransOrder> takeOrder(@RequestBody TransOrder transOrder) {
+//		transOrderService.
 		return null;
 	}
 	
-	@RequestMapping("cancelOrder")
+	@RequestMapping(value="cancelOrder", method=RequestMethod.POST)
 	public HttpResult<TransOrder> cancalOrder(Integer orderId) {
 		try {
 			TransOrder transOrder = transOrderService.cancelOrder(orderId);
