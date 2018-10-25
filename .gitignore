@@ -33,3 +33,5 @@ out
 .idea
 
 .DS_Store
+
+application-local.yml
