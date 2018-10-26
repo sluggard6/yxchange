@@ -47,9 +47,9 @@ public class TransOrder extends Base{
     private BigDecimal amount;
 
     /**
-     * 状态，0-新建，1-部分匹配，2-匹配完成，3-已完成，4-已撤单
+     * 状态，0-新建，1-部分匹配，2-匹配完成，3-已完成，4-已撤单，5-失败
      */
-    private Integer state;
+    private Integer state = State.NEW.ordinal();
     
     public TransOrder(Integer id, Integer accountId, Integer category, BigDecimal price, BigDecimal amount, Integer state) {
         this.id = id;
@@ -85,7 +85,8 @@ public class TransOrder extends Base{
     	PARTIAL_MATCH,
     	MATCH_DONE,
     	DONE,
-    	CANCELED;
+    	CANCELED,
+    	FAILED;
     }
 	
 	public boolean isCanCancel() {

@@ -21,5 +21,7 @@ public interface AccountService {
 	Account getAccountById(Integer accountId);
 
 	void addAccountOrder(AccountOrder accountOrder) throws FundNotEnoughException;
+
+	Account getAccountByUserCoin(Integer userId, Integer coinId);
 	
 }

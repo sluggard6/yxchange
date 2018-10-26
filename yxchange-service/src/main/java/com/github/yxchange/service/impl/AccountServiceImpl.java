@@ -78,6 +78,12 @@ public class AccountServiceImpl implements AccountService {
 		}
 		return account;
 	}
+	
+	@Override
+	public Account getAccountByUserCoin(Integer userId, Integer coinId) {
+		Coin coin = coinService.getCoin(coinId);
+		return getAccountByUserCoin(userId, coin.getName());
+	}
 
 
 	@Override

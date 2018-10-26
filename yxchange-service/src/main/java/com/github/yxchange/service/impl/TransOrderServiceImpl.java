@@ -21,6 +21,8 @@ import com.github.yxchange.service.TransOrderService;
 @Component
 public class TransOrderServiceImpl implements TransOrderService {
 	
+	private static final int CHANNEL_ID = 2;
+	
 	@Autowired
 	private TransOrderMapper transOrderMapper;
 	
@@ -62,13 +64,14 @@ public class TransOrderServiceImpl implements TransOrderService {
 		AccountOrder accountOrder = new AccountOrder();
 		accountOrder.setAccountId(transOrder.getAccountId());
 		accountOrder.setOrderId(transOrder.getId().toString());
+		accountOrder.setChannelId(CHANNEL_ID);
 		AccountOperation accountOperation = new AccountOperation();
 		accountOperation.setOrderId(accountOrder.getOrderId());
 		accountOperation.setAmount(transOrder.getAmount().multiply(transOrder.getPrice()));
 		accountOperation.setOperation(Operation.FREEZE);
 		accountOrder.addOperation(accountOperation);
 		accountService.addAccountOrder(accountOrder);
-		matchService.newTransOrder(transOrder);
+//		matchService.newTransOrder(transOrder);
 	}
 
 }
